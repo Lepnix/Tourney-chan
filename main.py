@@ -142,8 +142,8 @@ BANNED_1v1 = [
     "Zander"
 ]
 
-SERVER_ID = 744406275864920085
-DRAFT_CHANNEL_ID = 751593893824299049
+SERVER_ID = 737159606870081575
+DRAFT_CHANNEL_ID = 751602533646073978
 
 active_captains = {}
 match_dict = {}
@@ -1518,6 +1518,9 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
                                 "Pick a champion with:\n`!pick name`")
 
+                            await match_dict[match_id].channel_embed_message.edit(
+                                embed=match_dict[match_id].channel_embed)
+
                     elif match_dict[match_id].champ_stage == 5:
                         match_dict[match_id].champ_drafts[-1][1][1][1] = pick_champ
                         match_dict[match_id].update_champ_embed()
@@ -1550,6 +1553,9 @@ async def pick(ctx, *, arg):
                                 embed=match_dict[match_id].cap2_champ_embed)
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
                                 "Ban a champion with:\n`!ban name`")
+
+                            await match_dict[match_id].channel_embed_message.edit(
+                                embed=match_dict[match_id].channel_embed)
 
                     elif match_dict[match_id].champ_stage == 7:
                         match_dict[match_id].champ_drafts[-1][1][1][2] = pick_champ
@@ -1586,6 +1592,9 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
                                 f"The champion draft has completed. You are playing on: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                 f"Report whether you win or lose with: `!r w/l`")
+
+                            await match_dict[match_id].channel_embed_message.edit(
+                                embed=match_dict[match_id].channel_embed)
 
     if match_dict[match_id].match_format == '1v1':
         # 1v1 champ draft
