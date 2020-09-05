@@ -571,7 +571,7 @@ async def ban(ctx, *, arg):
 
                     match_dict[match_id].current_map = match_dict[match_id].map_drafts[-1][0][0]
 
-                    channel = await client.get_guild(SERVER_ID).get_channel(DRAFT_CHANNEL_ID)
+                    channel = client.get_guild(SERVER_ID).get_channel(DRAFT_CHANNEL_ID)
                     match_dict[match_id].channel_embed_message = await channel.send(
                         embed=match_dict[match_id].channel_embed)
 
@@ -1471,16 +1471,14 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap1_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap1_champ_embed)
                             match_dict[match_id].cap1_champ_message_2 = await channel.send(
-                                f"The champion draft has completed. You are playing on: `{
-                                match_dict[match_id].map_drafts[-1][0][0]}`\n"
+                                f"The champion draft has completed. You are playing on: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                 f"Report whether you win or lose with: `!r w/l`")
 
                             channel = await match_dict[match_id].captain2.create_dm()
                             match_dict[match_id].cap2_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap2_champ_embed)
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
-                                f"The champion draft has completed. You are playing on: `{
-                                match_dict[match_id].map_drafts[-1][0][0]}`\n"
+                                f"The champion draft has completed. You are playing on: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                 f"Report whether you win or lose with: `!r w/l`")
 
                             await match_dict[match_id].channel_embed_message.edit(
@@ -1600,16 +1598,14 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap1_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap1_champ_embed)
                             match_dict[match_id].cap1_champ_message_2 = await channel.send(
-                                f"The champion draft has completed. You are playing on: `{
-                                match_dict[match_id].map_drafts[-1][0][0]}`\n"
+                                f"The champion draft has completed. You are playing on: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                 f"Report whether you win or lose with: `!r w/l`")
 
                             channel = await match_dict[match_id].captain2.create_dm()
                             match_dict[match_id].cap2_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap2_champ_embed)
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
-                                f"The champion draft has completed. You are playing on: `{
-                                match_dict[match_id].map_drafts[-1][0][0]}`\n"
+                                f"The champion draft has completed. You are playing on: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                 f"Report whether you win or lose with: `!r w/l`")
 
                             await match_dict[match_id].channel_embed_message.edit(
@@ -1657,8 +1653,7 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap1_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap1_1v1_embed)
                             match_dict[match_id].cap1_champ_message_2 = await channel.send(
-                                f"Pick {5 - len(
-                                    match_dict[match_id].champ_drafts[-1][0])} more champions with: `!pick name`")
+                                f"Pick {5 - len(match_dict[match_id].champ_drafts[-1][0])} more champions with: `!pick name`")
 
                         elif len(match_dict[match_id].champ_drafts[-1][0]) == 5:
 
@@ -1717,8 +1712,7 @@ async def pick(ctx, *, arg):
                             match_dict[match_id].cap2_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap2_1v1_embed)
                             match_dict[match_id].cap2_champ_message_2 = await channel.send(
-                                f"Pick {5 - len(
-                                    match_dict[match_id].champ_drafts[-1][1])} more champions with: `!pick name`")
+                                f"Pick {5 - len(match_dict[match_id].champ_drafts[-1][1])} more champions with: `!pick name`")
 
                         elif len(match_dict[match_id].champ_drafts[-1][1]) == 5:
 
@@ -1784,15 +1778,13 @@ async def pick(ctx, *, arg):
 
                         channel = await match_dict[match_id].captain1.create_dm()
                         await channel.send(f"You are playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
-                                           f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[
-                                               match_id].cap2_1v1_champ}`\n"
+                                           f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
                                            f"The map is: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                            f"Report the result of your game with: `!report w/l`")
 
                         channel = await match_dict[match_id].captain2.create_dm()
                         await channel.send(f"You are playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
-                                           f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[
-                                               match_id].cap1_1v1_champ}`\n"
+                                           f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
                                            f"The map is: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                            f"Report the result of your game with: `!report w/l`")
 
@@ -1818,15 +1810,13 @@ async def pick(ctx, *, arg):
 
                         channel = await match_dict[match_id].captain1.create_dm()
                         await channel.send(f"You are playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
-                                           f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[
-                                               match_id].cap2_1v1_champ}`\n"
+                                           f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
                                            f"The map is: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                            f"Report the result of your game with: `!report w/l`")
 
                         channel = await match_dict[match_id].captain2.create_dm()
                         await channel.send(f"You are playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
-                                           f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[
-                                               match_id].cap1_1v1_champ}`\n"
+                                           f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
                                            f"The map is: `{match_dict[match_id].map_drafts[-1][0][0]}`\n"
                                            f"Report the result of your game with: `!report w/l`")
 
@@ -1857,14 +1847,12 @@ async def pick(ctx, *, arg):
 
                 channel = await match_dict[match_id].captain1.create_dm()
                 await channel.send(f"You are playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
-                                   f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[
-                                       match_id].cap2_1v1_champ}`\n"
+                                   f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
                                    f"Report the result of your game with: `!report w/l`")
 
                 channel = await match_dict[match_id].captain2.create_dm()
                 await channel.send(f"You are playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
-                                   f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[
-                                       match_id].cap1_1v1_champ}`\n"
+                                   f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
                                    f"Report the result of your game with: `!report w/l`")
 
             elif ctx.author == match_dict[match_id].captain2:
@@ -1880,14 +1868,12 @@ async def pick(ctx, *, arg):
 
                 channel = await match_dict[match_id].captain1.create_dm()
                 await channel.send(f"You are playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
-                                   f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[
-                                       match_id].cap2_1v1_champ}`\n"
+                                   f"`{match_dict[match_id].captain2.name}` is playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
                                    f"Report the result of your game with: `!report w/l`")
 
                 channel = await match_dict[match_id].captain2.create_dm()
                 await channel.send(f"You are playing: `{match_dict[match_id].cap2_1v1_champ}`\n"
-                                   f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[
-                                       match_id].cap1_1v1_champ}`\n"
+                                   f"`{match_dict[match_id].captain1.name}` is playing: `{match_dict[match_id].cap1_1v1_champ}`\n"
                                    f"Report the result of your game with: `!report w/l`")
 
         elif match_dict[match_id].current_draft == 'map' and match_dict[match_id].current_game > 1:
