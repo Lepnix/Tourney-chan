@@ -196,6 +196,7 @@ class MatchState:
         self.last_game_result = [9, 9]
         self.show_both_1v1 = False
         self.bans_1v1 = [None, None]
+        self.current_map = None
 
     def update_map_embed(self):
         self.map_embed = discord.Embed(
@@ -261,6 +262,12 @@ class MatchState:
         self.channel_embed.add_field(name='Captains', value=label_field)
         self.channel_embed.add_field(name=f'{self.captain1.name}', value=cap1_field)
         self.channel_embed.add_field(name=f'{self.captain2.name}', value=cap2_field)
+
+        if self.current_map is not None:
+            self.cap1_champ_embed.add_field(name='Map', value=self.current_map, inline=False)
+            self.cap2_champ_embed.add_field(name='Map', value=self.current_map, inline=False)
+            self.channel_embed(name='Map', value=self.current_map, inline=False)
+
 
     def update_1v1_embed(self):
         self.cap1_1v1_embed = discord.Embed(
@@ -548,7 +555,7 @@ async def ban(ctx, *, arg):
                     await channel.send(f"The chosen map is: `{match_dict[match_id].map_drafts[-1][0][0]}`")
                     match_dict[match_id].cap1_champ_message = await channel.send(embed=match_dict[match_id].cap1_champ_embed)
                     match_dict[match_id].cap1_champ_message_2 = await channel.send("The champion draft will now begin. "
-                                                                                   "You will draft your characters in the following order: R > Bx > By > Pr > Pr > B > P. "
+                                                                                   "You will draft your characters in the following order: R > Bx > By > P > P > Br > P. "
                                                                                    "Reserve a champion with: "
                                                                                    "`!res name`")
 
@@ -556,10 +563,12 @@ async def ban(ctx, *, arg):
                     await channel.send(f"The chosen map is: `{match_dict[match_id].map_drafts[-1][0][0]}`")
                     match_dict[match_id].cap2_champ_message = await channel.send(embed=match_dict[match_id].cap2_champ_embed)
                     match_dict[match_id].cap2_champ_message_2 = await channel.send("The champion draft will now begin. "
-                                                                                   "You will draft your characters in the following order: R > Bx > By > Pr > Pr > B > P. "
+                                                                                   "You will draft your characters in the following order: R > Bx > By > P > P > Br > P. "
                                                                                    "Reserve a champion with: "
                                                                                    "`!res name`")
 
+                    match_dict[match_id].current_map = match_dict[match_id].map_drafts[-1][0][0]
+                    
                     channel = await client.get_guild(SERVER_ID).get_channel(DRAFT_CHANNEL_ID)
                     match_dict[match_id].channel_embed_message = await channel.send(embed=match_dict[match_id].channel_embed)
 
@@ -1311,6 +1320,7 @@ async def pick(ctx, *, arg):
                 channel = await match_dict[match_id].captain1.create_dm()
                 await channel.send(f"The chosen map is: `{pick_map}`")
                 match_dict[match_id].map_drafts[-1][0][0] = pick_map
+                match_dict[match_id].current_map = pick_map
                 match_dict[match_id].cap1_champ_message = await channel.send(
                     embed=match_dict[match_id].cap1_champ_embed)
                 match_dict[match_id].cap1_champ_message_2 = await channel.send("The champion draft will now begin. "
@@ -1320,6 +1330,7 @@ async def pick(ctx, *, arg):
                 channel = await match_dict[match_id].captain2.create_dm()
                 await channel.send(f"The chosen map is: `{pick_map}`")
                 match_dict[match_id].map_drafts[-1][0][0] = pick_map
+                match_dict[match_id].current_map = pick_map
                 match_dict[match_id].cap2_champ_message = await channel.send(
                     embed=match_dict[match_id].cap2_champ_embed)
                 match_dict[match_id].cap2_champ_message_2 = await channel.send("The champion draft will now begin. "
