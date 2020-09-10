@@ -266,7 +266,7 @@ class MatchState:
         if self.current_map is not None:
             self.cap1_champ_embed.add_field(name='Map', value=self.current_map, inline=False)
             self.cap2_champ_embed.add_field(name='Map', value=self.current_map, inline=False)
-            self.channel_embed(name='Map', value=self.current_map, inline=False)
+            self.channel_embed.add_field(name='Map', value=self.current_map, inline=False)
 
     def update_1v1_embed(self):
         self.cap1_1v1_embed = discord.Embed(
@@ -296,15 +296,9 @@ class MatchState:
         self.cap1_1v1_embed.add_field(name="You", value=cap1_field)
         self.cap2_1v1_embed.add_field(name="You", value=cap2_field)
 
-        '''
         if self.show_both_1v1:
             self.cap1_1v1_embed.add_field(name=self.captain2.name, value=cap2_field)
             self.cap2_1v1_embed.add_field(name=self.captain1.name, value=cap1_field)
-        '''
-
-        self.cap1_1v1_embed.add_field(name=self.captain2.name, value=cap2_field)
-        self.cap2_1v1_embed.add_field(name=self.captain1.name, value=cap1_field)
-
 
 @client.event
 async def on_ready():
@@ -315,6 +309,8 @@ async def on_ready():
 async def on_message(ctx):
     if ctx.author == client.user:
         return
+
+
 
     await client.process_commands(ctx)
 
@@ -1265,10 +1261,13 @@ async def reserve(ctx, *, arg):
         else:
             match_dict[match_id].champ_stage = 2
 
-            await match_dict[match_id].cap1_champ_message.delete()
-            await match_dict[match_id].cap1_champ_message_2.delete()
-            await match_dict[match_id].cap2_champ_message.delete()
-            await match_dict[match_id].cap2_champ_message_2.delete()
+            try:
+                await match_dict[match_id].cap1_champ_message.delete()
+                await match_dict[match_id].cap1_champ_message_2.delete()
+                await match_dict[match_id].cap2_champ_message.delete()
+                await match_dict[match_id].cap2_champ_message_2.delete()
+            except:
+                pass
 
             channel = await match_dict[match_id].captain1.create_dm()
             match_dict[match_id].cap1_champ_message = await channel.send(embed=match_dict[match_id].cap1_champ_embed)
@@ -1325,6 +1324,7 @@ async def pick(ctx, *, arg):
                 await channel.send(f"The chosen map is: `{pick_map}`")
                 match_dict[match_id].map_drafts[-1][0][0] = pick_map
                 match_dict[match_id].current_map = pick_map
+                match_dict[match_id].update_champ_embed()
                 match_dict[match_id].cap1_champ_message = await channel.send(
                     embed=match_dict[match_id].cap1_champ_embed)
                 match_dict[match_id].cap1_champ_message_2 = await channel.send("The champion draft will now begin. "
@@ -1335,6 +1335,7 @@ async def pick(ctx, *, arg):
                 await channel.send(f"The chosen map is: `{pick_map}`")
                 match_dict[match_id].map_drafts[-1][0][0] = pick_map
                 match_dict[match_id].current_map = pick_map
+                match_dict[match_id].update_champ_embed()
                 match_dict[match_id].cap2_champ_message = await channel.send(
                     embed=match_dict[match_id].cap2_champ_embed)
                 match_dict[match_id].cap2_champ_message_2 = await channel.send("The champion draft will now begin. "
@@ -1505,8 +1506,14 @@ async def pick(ctx, *, arg):
                         match_dict[match_id].update_champ_embed()
 
                         if match_dict[match_id].champ_drafts[-1][0][1][0] == '----':
-                            await match_dict[match_id].cap2_champ_message.delete()
-                            await match_dict[match_id].cap2_champ_message_2.delete()
+                            try:
+                                await match_dict[match_id].cap2_champ_message.delete()
+                            except:
+                                pass
+                            try:
+                                await match_dict[match_id].cap2_champ_message_2.delete()
+                            except:
+                                pass
                             channel = await ctx.author.create_dm()
                             match_dict[match_id].cap2_champ_message = await channel.send(
                                 embed=match_dict[match_id].cap2_champ_embed)
@@ -1730,6 +1737,7 @@ async def pick(ctx, *, arg):
                             if len(match_dict[match_id].champ_drafts[-1][0]) < 5:
 
                                 match_dict[match_id].update_1v1_embed()
+
 
                                 match_dict[match_id].cap2_champ_message = await channel.send(
                                     embed=match_dict[match_id].cap2_1v1_embed)
